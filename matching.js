@@ -1,26 +1,131 @@
-
+// import User from '../user'   % user.js
 /*
  * File: matching.js
  * -----------------
  * Presents the implementation of the matching algorithm.
  */
 
-/* Person = {'mentors': {'ez': ['Eric Zhou', {'e'}, (1, 3, 4, 5)],
-                         'ig': ['Isabel Gallegos', {'f'}, (1, 4, 5)],
-                         'ap': ['Anthony Perez', {'e', 'f'}, (2, 3)],
-                         'fk': ['Farzaan Kaiyom', {'f'}, (1, 2, 5)],
-                         'jw': ['Ji Hun Wang', {'e'}, (5)]}} */
-
-/* Language is of a set of strings */
-/* Interest is a set of booleans */
-/* Number of students assigned to each mentor is an int */
-
-var mentor = {
-    'ez': ['Eric Zhou', new Set(['e']),          [true, false, true, true, true],    3],
-    'ig': ['Isabel Gallegos', new Set(['f']),    [true, false, false, true, true],   2],
-    'ap': ['Anthony Perez', new Set(['e', 'f']), [false, true, true, false, false],  4],
-    'fk': ['Farzaan Kaiyom', new Set(['f']),     [true, true, false, false, true],   5],
-    'jw': ['Ji Hun Wang', new Set(['e']),        [false, false, false, false, true], 4]
+var users = {
+    "5cf5dccd08d902001ef6449e":
+    { "_id" : "5cf5dccd08d902001ef6449e",
+      "email" : "farkaiyom@gmail.com",
+      "password" : "$2a$10$uW6d6fL5bkubaqwmG2V5w.UCYryBSYHBG8gP61J0qHzJNZsRf5qJS",
+      "isMentee" : false,
+      "age" : 21,
+      "gender" : "male",
+      "course" : "course1",
+      "countryOfOrigin" : "other",
+      "asylumStatus" : "asylumSeeker",
+      "skills" : { "computer": false,
+                   "coding" : true,
+                   "education" : false,
+                   "leadership" : false,
+                   "development" : false },
+      "languages" : { "english" : true, "french": false },
+      "phone" : { "number" : "210-624-1731", "verified" : false },
+      "emailVerified" : false,
+      "name" : { "first" : "Farzaan", "last" : "Kaiyom" },
+      "__v" : 0 },
+    "4de5ddcd07d902011fe6943e":
+    { "_id" : "4de5ddcd07d902011fe6943e",
+      "email" : "ericzhou@gmail.com",
+      "password" : "$2a$10$uW6d6fL5bkubaqwmG2V5w.UCYryBSYHBG8gP61J0qHzJNZsRf5qJS",
+      "isMentee" : false,
+      "age" : 21,
+      "gender" : "male",
+      "course" : "course1",
+      "countryOfOrigin" : "other",
+      "asylumStatus" : "asylumSeeker",
+      "skills" : { "computer": true,
+                   "coding" : true,
+                   "education" : false,
+                   "leadership" : true,
+                   "development" : false },
+      "languages" : { "english": false, "french" : true },
+      "phone" : { "number" : "210-624-1731", "verified" : false },
+      "emailVerified" : false,
+      "name" : { "first" : "Eric", "last" : "Zhou" },
+      "__v" : 0 },
+    "3ce8fqpe69e838502ef6000e":
+    { "_id" : "3ce8fqpe69e838502ef6000e",
+      "email" : "aperez@gmail.com",
+      "password" : "$2a$10$uW6d6fL5bkubaqwmG2V5w.UCYryBSYHBG8gP61J0qHzJNZsRf5qJS",
+      "isMentee" : false,
+      "age" : 21,
+      "gender" : "male",
+      "course" : "course1",
+      "countryOfOrigin" : "other",
+      "asylumStatus" : "asylumSeeker",
+      "skills" : { "computer": true,
+                   "coding" : true,
+                   "education" : true,
+                   "leadership" : false,
+                   "development" : false },
+      "languages" : { "english" : true, "french": true },
+      "phone" : { "number" : "210-624-1731", "verified" : false },
+      "emailVerified" : false,
+      "name" : { "first" : "Anthony", "last" : "Perez" },
+      "__v" : 0 },
+    "2qq8bksj09d702106dp6069g":
+    { "_id" : "2qq8bksj09d702106dp6069g",
+      "email" : "igallegos@gmail.com",
+      "password" : "$2a$10$uW6d6fL5bkubaqwmG2V5w.UCYryBSYHBG8gP61J0qHzJNZsRf5qJS",
+      "isMentee" : false,
+      "age" : 21,
+      "gender" : "female",
+      "course" : "course1",
+      "countryOfOrigin" : "other",
+      "asylumStatus" : "asylumSeeker",
+      "skills" : { "computer": false,
+                   "coding" : false,
+                   "education" : false,
+                   "leadership" : true,
+                   "development" : true },
+      "languages" : { "english" : false, "french" : true },
+      "phone" : { "number" : "210-624-1731", "verified" : false },
+      "emailVerified" : false,
+      "name" : { "first" : "Isabel", "last" : "Gallegos" },
+      "__v" : 0 },
+    "1pq5eovo9d800001lm1227e":
+    { "_id" : "1pq5eovo9d800001lm1227e",
+      "email" : "jhwang@gmail.com",
+      "password" : "$2a$10$uW6d6fL5bkubaqwmG2V5w.UCYryBSYHBG8gP61J0qHzJNZsRf5qJS",
+      "isMentee" : false,
+      "age" : 21,
+      "gender" : "male",
+      "course" : "course1",
+      "countryOfOrigin" : "other",
+      "asylumStatus" : "asylumSeeker",
+      "skills" : { "computer": false,
+                   "coding" : false,
+                   "education" : true,
+                   "leadership" : false,
+                   "development" : false },
+      "languages" : { "english" : true, "french" : true },
+      "phone" : { "number" : "210-624-1731", "verified" : false },
+      "emailVerified" : false,
+      "name" : { "first" : "Ji Hun", "last" : "Wang" },
+      "__v" : 0 },
+    "7sq7biew9e08492lm2975e":
+    { "_id" : "7sq7biew9e08492lm2975e",
+        "email" : "drew@gmail.com",
+        "password" : "$2a$10$uW6d6fL5bkubaqwmG2V5w.UCYryBSYHBG8gP61J0qHzJNZsRf5qJS",
+        "isMentee" : true,
+        "age" : 21,
+        "gender" : "male",
+        "course" : "course1",
+        "countryOfOrigin" : "other",
+        "asylumStatus" : "asylumSeeker",
+        "skills" : { "computer": true,
+                     "coding" : true,
+                     "education" : false,
+                     "leadership" : false,
+                     "development" : false },
+        "languages" : { "english" : false, "french" : true },
+        "phone" : { "number" : "210-624-1731", "verified" : false },
+        "emailVerified" : false,
+        "name" : { "first" : "Drew", "last" : "Gregory" },
+        "__v" : 0 }
 };
 
 /* Helpful function (not used for the actual implementation of the matching algorithm) */
@@ -29,35 +134,105 @@ function union(set1, set2) {
     return setUnion;
 }
 
+
+function ref(users) {
+    var usersData = [ users ];
+    return usersData[0];
+}
+
+
+function languageMatch(mentorLanguages, menteeLanguages) {
+    var intersection = 0;
+    if (menteeLanguages.english == true) {
+        if (mentorLanguages.english == true) {
+            intersection++;
+        }
+    }
+    if (menteeLanguages.french == true) {
+        if (mentorLanguages.french == true) {
+            intersection++;
+        }
+    }
+    if (intersection > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 /* Code for matching algorithm */
-function match(mentor, mentee) {
-    var mentee_name = Object.keys(mentee);
+function match(users, menteeId) {
+
+    var usersData = ref(users);
+    var keys = Object.keys(users);
+    var mentee = new Map();
+    var mentor = new Map();
+    
+    for (var i = 0; i < keys.length; i++){
+        var obj = usersData[keys[i]]
+        if (!obj.isMentee) {
+            var id = obj._id;
+            mentor[id] = new Map();
+            mentor[id] = obj;
+        } else {
+            if (obj._id == menteeId) {
+                mentee[obj._id] = obj;
+            }
+        }
+    }
+
     var same_language = new Map();
     var keysInitial = Object.keys(mentor);
     keysInitial.forEach(function(key) {
-        var intersection = new Set(
-            [...mentee[mentee_name[0]][1]].filter(x => mentor[key][1].has(x))
-        );
-        if (intersection.size != 0) {
+
+        menteeLanguages = mentee[menteeId].languages;
+        mentorLanguages = mentor[key].languages;
+
+        if (languageMatch(mentorLanguages, menteeLanguages)) {
             same_language[key] = mentor[key];
         }
+
     });
     
     var intermediate = new Map();
     var keysFinal = Object.keys(same_language);
     keysFinal.sort(function(item1, item2) {
-        var interest1 = same_language[item1][2];
-        var interest2 = same_language[item2][2];
+        var skill1 = same_language[item1].skills;
+        var skill2 = same_language[item2].skills;
         var intersection1 = 0;
         var intersection2 = 0;
 
-        for (var i = 0; i < 5; i++) {
-            if (interest1[i] == true && mentee[mentee_name][2][i]) {
-                intersection1++;
-            }
-            if (interest2[i] == true && mentee[mentee_name][2][i]) {
-                intersection2++;
-            }
+        if (skill1.computer && mentee[menteeId].skills.computer) {
+            intersection1++;
+        }
+        if (skill1.coding && mentee[menteeId].skills.coding) {
+            intersection1++;
+        }
+        if (skill1.education && mentee[menteeId].skills.education) {
+            intersection1++;
+        }
+        if (skill1.leadership && mentee[menteeId].skills.leadership) {
+            intersection1++;
+        }
+        if (skill1.development && mentee[menteeId].skills.development) {
+            intersection1++;
+        }
+
+        if (skill2.computer && mentee[menteeId].skills.computer) {
+            intersection2++;
+        }
+        if (skill2.coding && mentee[menteeId].skills.coding) {
+            intersection2++;
+        }
+        if (skill2.education && mentee[menteeId].skills.education) {
+            intersection2++;
+        }
+        if (skill2.leadership && mentee[menteeId].skills.leadership) {
+            intersection2++;
+        }
+        if (skill2.development && mentee[menteeId].skills.development) {
+            intersection2++;
         }
         intermediate[item1] = intersection1;
         intermediate[item2] = intersection2;
@@ -83,55 +258,50 @@ function match(mentor, mentee) {
     return mentor[mentorList[0]];
 }
 
-/* For Reference:
-    var mentor = {
-        'ez': ['Eric Zhou', new Set(['e']),          [true, false, true, true, true],    3],
-        'ig': ['Isabel Gallegos', new Set(['f']),    [true, false, false, true, true],   2],
-        'ap': ['Anthony Perez', new Set(['e', 'f']), [false, true, true, false, false],  4],
-        'fk': ['Farzaan Kaiyom', new Set(['f']),     [true, true, false, false, true],   5],
-        'jw': ['Ji Hun Wang', new Set(['e']),        [false, false, false, false, true], 4]
-    };
-*/
+/* Example run */
+console.log(match(users, '7sq7biew9e08492lm2975e'));
 
 
-var mentee1 = {
-    'ls': ['Leland Stanford', new Set(['f']),    [false, true, true, false, true]]
-};
-console.log(mentee1);
-console.log(match(mentor, mentee1));    // Expected: Anthony Perez
-console.log(' ');
 
-var mentee2 = {
-    'ah': ['Alexander Hamilton', new Set(['e', 'f']), [true, false, false, false, false]]
-};
-console.log(mentee2);
-console.log(match(mentor, mentee2));    // Expected: Isabel Gallegos
-console.log(' ');
 
-var mentee3 = {
-    'gw': ['George Washington', new Set(['e']), [false, false, false, false, false]]
-};
-console.log(mentee3);
-console.log(match(mentor, mentee3));    // Expected: Eric Zhou
-console.log(' ');
+// var mentee1 = {
+//     'ls': ['Leland Stanford', new Set(['f']),    [false, true, true, false, true]]
+// };
+// console.log(mentee1);
+// console.log(match(mentor, mentee1));    // Expected: Anthony Perez
+// console.log(' ');
 
-var mentee4 = {
-    'ja': ['John Adams', new Set(['e', 'f']), [true, true, true, true, true]]
-};
-console.log(mentee4);
-console.log(match(mentor, mentee4));    // Expected: Eric Zhou
-console.log(' ');
+// var mentee2 = {
+//     'ah': ['Alexander Hamilton', new Set(['e', 'f']), [true, false, false, false, false]]
+// };
+// console.log(mentee2);
+// console.log(match(mentor, mentee2));    // Expected: Isabel Gallegos
+// console.log(' ');
 
-var mentee5 = {
-    'ab': ['Aaron Burr', new Set(['e']), [true, false, false, true, true]]
-};
-console.log(mentee5);
-console.log(match(mentor, mentee5));    // Expected: Eric Zhou
-console.log(' ');
+// var mentee3 = {
+//     'gw': ['George Washington', new Set(['e']), [false, false, false, false, false]]
+// };
+// console.log(mentee3);
+// console.log(match(mentor, mentee3));    // Expected: Eric Zhou
+// console.log(' ');
 
-var mentee6 = {
-    'jm': ['James Madison', new Set(['f']), [true, true, true, false, false]]
-};
-console.log(mentee6);
-console.log(match(mentor, mentee6));    // Expected: Anthony Perez
-console.log(' ');
+// var mentee4 = {
+//     'ja': ['John Adams', new Set(['e', 'f']), [true, true, true, true, true]]
+// };
+// console.log(mentee4);
+// console.log(match(mentor, mentee4));    // Expected: Eric Zhou
+// console.log(' ');
+
+// var mentee5 = {
+//     'ab': ['Aaron Burr', new Set(['e']), [true, false, false, true, true]]
+// };
+// console.log(mentee5);
+// console.log(match(mentor, mentee5));    // Expected: Eric Zhou
+// console.log(' ');
+
+// var mentee6 = {
+//     'jm': ['James Madison', new Set(['f']), [true, true, true, false, false]]
+// };
+// console.log(mentee6);
+// console.log(match(mentor, mentee6));    // Expected: Anthony Perez
+// console.log(' ');
